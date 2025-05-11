@@ -1,19 +1,18 @@
 import { Alert, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import styles from './styles';
-import VectorIcon from '../../../utils/VectorIcon';
-import { IconsType } from '../../../utils/constants';
-import images from '../../../assets/images';
+import styles from '../styles';
+import VectorIcon from '../../../../utils/VectorIcon';
+import { IconsType } from '../../../../utils/constants';
+import images from '../../../../assets/images';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { AuthStackParamList } from '../../../navigation/types';
-import { register } from '../../../api/auth';
-import Loader from '../../../components/common/Loader';
+import { AuthStackParamList } from '../../../../navigation/types';
+import { register, updatePassword } from '../../../../api/auth';
+import Loader from '../../../../components/common/Loader';
 import Toast from 'react-native-simple-toast';
 
 type NavigationProp = NativeStackNavigationProp<AuthStackParamList>;
-
-const SignupScreen = () => {
+const ChangePassword = (props: any) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,17 +28,10 @@ const SignupScreen = () => {
         setErrorMsg('');
       
         // Basic empty checks
-        if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
+        if (!password.trim() || !confirmPassword.trim()) {
           setErrorMsg('All fields are required.');
           return true;
         } 
-      
-        // Email format validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email.trim())) {
-          setErrorMsg('Please enter a valid email address.');
-          return true;
-        }
       
         // Password length
         if (password.length < 6) {
@@ -66,19 +58,21 @@ const SignupScreen = () => {
         if(!checkValidation()){
         setLoading(true);
         const params = {
-            email: email,
+            email: props?.route?.params?.emailId,
             password: password,
             confirmPassword: confirmPassword
         }
-        const res = await register(params);
-        console.log('result', res)
-        if(res.status === 201){
+        console.log('paramss', params)
+        const res = await updatePassword(params);
+        console.log('resultChange', res)
+        if(res.status === 200){
           Toast.show(res?.data?.message, Toast.LONG)
           navigation.navigate('Login')
           setLoading(false)
         } else {
           setLoading(false)
           Toast.show(res?.data?.error, Toast.LONG)
+
         }
         }
         return
@@ -87,17 +81,15 @@ const SignupScreen = () => {
         // Success action (e.g., API call)
       };
 
-      const onSignupPress = () => {
-        navigation.navigate('Login')
-    }
-
+  
     const onBackPress = () => {
       navigation.goBack();
     }
+  
     
   return (
     <SafeAreaView style={styles.container}>
-        <TouchableOpacity style={styles.backView} onPress={onBackPress}>
+       <TouchableOpacity style={styles.backView} onPress={onBackPress}>
         <VectorIcon
               type={IconsType.Ionicons}
               name={'chevron-back'}
@@ -107,17 +99,7 @@ const SignupScreen = () => {
         </TouchableOpacity>
        <View style={styles.container}>
        <Loader visible={loading} />
-      <Text style={styles.welcome}>Create an {"\n"}account</Text>
-
-      <View style={styles.inputBox}>
-        <VectorIcon
-              type={IconsType.FontAwesome6}
-              name={'user-large'}
-              color={'#555'}
-              size={20}
-            />
-        <TextInput placeholder="Username or Email" style={styles.input} onChangeText={val => setEmail(val)} />
-      </View>
+      <Text style={styles.welcome}>Change {"\n"}Password</Text>
 
       <View style={styles.inputBox}>
         <VectorIcon
@@ -127,7 +109,7 @@ const SignupScreen = () => {
               size={24}
             />
         <TextInput 
-         placeholder="Password" 
+         placeholder="New Password" 
          value={password}
          secureTextEntry={secureTextEntry} 
          style={styles.input} onChangeText={val => setPassword(val)} />
@@ -152,7 +134,7 @@ const SignupScreen = () => {
               size={24}
             />
         <TextInput 
-         placeholder="Confirm Password" 
+         placeholder="Confirm New Password" 
          value={confirmPassword}
          secureTextEntry={secureTextEntryConfirm} 
          style={styles.input} onChangeText={val => setConfirmPassword(val)} />
@@ -173,43 +155,24 @@ const SignupScreen = () => {
           <Text style={{ color: 'red', marginBottom: 10 }}>{errorMsg}</Text>
         )}
 
-     <View>
-        <Text style={styles.signupTextDescription}>By clicking the Register button, you agree to the public offer</Text>
+<View>
+        <Text style={styles.signupTextDescription}>By clicking forgot password, your password will be changed directly*</Text>
         </View>
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginText}>Create Account</Text>
+        <Text style={styles.loginText}>Change Password</Text>
       </TouchableOpacity>
 
-      <Text style={styles.orText}>- OR Continue with -</Text>
 
-      <View style={styles.socialContainer}>
-        <TouchableOpacity style={styles.socialCircle}>
-          <Image source={images.auth.google}/>
 
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.socialCircle, {marginHorizontal: 10}]}>
-          <Image source={images.auth.apple}/>
-
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialCircle}>
-          <Image source={images.auth.facebook}/>
-        </TouchableOpacity>
-      </View>
 
      
 
-      <View style={styles.createAccountView}>
 
-      <Text style={styles.signupText}>
-      I Already Have an Account
-      </Text>
-      <TouchableOpacity onPress={onSignupPress}><Text style={styles.signUp}>Login</Text></TouchableOpacity>
-</View>
     </View>
 
 </SafeAreaView>
   )
 }
 
-export default SignupScreen;
+export default ChangePassword;

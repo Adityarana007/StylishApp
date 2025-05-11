@@ -4,8 +4,8 @@ import { Colors } from "../../../assets/colors";
 
 const styles = StyleSheet.create({
     container: {
-      paddingVertical: 25,
-        paddingHorizontal: 10,
+        paddingVertical: 25,
+        paddingHorizontal: 20,
         flex: 1,
         backgroundColor: '#fff',
       },
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 10,
         alignItems: 'center',
+        marginTop: 20
       },
       loginText: {
         color: '#fff',
@@ -83,24 +84,25 @@ const styles = StyleSheet.create({
       signupText: {
         textAlign: 'center',
         color: '#555',
-        fontFamily: fonts.montserratRegular
+        fontFamily: fonts.montserratRegular,
+        justifyContent: 'center',
+        alignItems: 'center'
       },
       signUp: {
         color: '#e53950',
         fontFamily: fonts.montserratSemiBold,
         marginLeft: 6
       },
-      signupTextDescription:{
-        fontFamily: fonts.montserratRegular,
-        color: '#676767',
-        fontSize: 12,
-        marginVertical: 10,
-        marginBottom: 30
-      } ,
       createAccountView:{
         flexDirection: 'row',
         justifyContent: 'center'
       },
+      signupTextDescription:{
+        fontFamily: fonts.montserratRegular,
+        color: '#676767',
+        fontSize: 12,
+
+      } ,
       backView:{
         paddingLeft: 10
       }

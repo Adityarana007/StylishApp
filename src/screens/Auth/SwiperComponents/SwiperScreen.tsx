@@ -46,12 +46,20 @@ const SwiperScreen = () => {
   const goToLogin = () => {
     navigation.navigate('Login')
   };
+  const onSkipPress = () => {
+    navigation.navigate('Login')
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.countView}>
+      <View style={styles.countSkipView}>
+        <View style={styles.countView}>
         <Text style={styles.pageCount}>{pageIndex + 1}</Text>
         <Text style={styles.pageCountTotal}>/3</Text>
+        </View>
+        <TouchableOpacity onPress={onSkipPress}>
+          <Text style={styles.buttonText}>Skip</Text>
+        </TouchableOpacity>
       </View>
       <Swiper
         ref={swiperRef}
@@ -146,10 +154,15 @@ const styles = StyleSheet.create({
     color: Colors.colorRed,
     fontFamily: fonts.montserratSemiBold,
   },
+  countSkipView:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+  },
   countView: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: 20,
   },
   pageCount: {
     color: Colors.black,

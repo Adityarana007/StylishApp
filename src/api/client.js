@@ -1,8 +1,9 @@
 import { create } from "apisauce";
-import { BASE_URL } from "./apiUrls";
+import { BASE_URL, LOCAL_URL } from "./apiUrls";
 
 const apiClient = create({
-    baseURL: BASE_URL,
+    // baseURL: BASE_URL,
+    baseURL: LOCAL_URL,
     headers: {
         Accept: 'application/json'
     },
@@ -14,4 +15,4 @@ apiClient.addMonitor(response => {
     console.log('API Response:', response);
   });
 
-export default apiClient;
+export default apiClient;     

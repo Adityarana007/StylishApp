@@ -2,6 +2,10 @@ export type AuthStackParamList = {
     Swiper: undefined;
     Login: undefined;
     Signup: undefined;
+    Forgot: undefined;
+    ChangePassword: {
+        emailId: string
+    };
 };
 
 export type AppStackParamList = {
