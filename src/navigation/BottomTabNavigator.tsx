@@ -2,11 +2,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomTabParamList} from './types';
 import VectorIcon from '../utils/VectorIcon';
 import {IconsType} from '../utils/constants';
-import HomeScreen from '../screens/Home/HomeScreen';
-import ProfileScreen from '../screens/Home/ProfileScreen';
+import ProfileScreen from '../screens/Dashboard/ProfileScreen';
 import {Colors} from '../assets/colors';
-import SettingScreen from '../screens/Home/SettingScreen';
-import WishlistScreen from '../screens/Home/WishlistScreen';
+import SettingScreen from '../screens/Dashboard/SettingScreen';
+import WishlistScreen from '../screens/Dashboard/WishlistScreen';
+import HomeScreen from '../screens/Dashboard/Home';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 

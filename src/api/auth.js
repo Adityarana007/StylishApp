@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER, UPDATE_PASSWORD, VERIFY_EMAIL } from "./apiUrls";
+import { GET_CATEGORIES, LOGIN, REGISTER, UPDATE_PASSWORD, VERIFY_EMAIL } from "./apiUrls";
 import apiClient from "./client";
 
 export const register = async (params) => {
@@ -14,4 +14,8 @@ export const verifyEmail = async (params) => {
 }
 export const updatePassword = async (params) => {
     return await apiClient.post(UPDATE_PASSWORD, params)
+}
+
+export const getCategories = async (params) => {
+    return await apiClient.get(GET_CATEGORIES)
 }

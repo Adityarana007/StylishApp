@@ -9,6 +9,9 @@ const images = {
         google: require('./images/Auth/google.png'),
         apple: require('./images/Auth/apple.png'),
         facebook: require('./images/Auth/facebook.png')
+    },
+    home: {
+        logo: require('./images/Home/logo.png')
     }
 };
 

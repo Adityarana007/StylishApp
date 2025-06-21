@@ -55,7 +55,7 @@ const ForgotPassword = () => {
     // proceed with registration API
   };
 
-  const handleLogin = async () => {
+  const handleForgot = async () => {
     checkValidation();
     if (!checkValidation()) {
       setLoading(true);
@@ -127,7 +127,7 @@ const ForgotPassword = () => {
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleForgot}>
           <Text style={styles.loginText}>Submit</Text>
         </TouchableOpacity>
       </View>
