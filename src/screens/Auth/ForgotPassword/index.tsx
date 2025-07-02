@@ -19,6 +19,7 @@ import {AuthStackParamList} from '../../../navigation/types';
 import {register, verifyEmail} from '../../../api/auth';
 import Loader from '../../../components/common/Loader';
 import Toast from 'react-native-simple-toast';
+import {Strings} from '../../../assets/strings';
 
 type NavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
@@ -39,14 +40,14 @@ const ForgotPassword = () => {
 
     // Basic empty checks
     if (!email.trim()) {
-      setErrorMsg('Please enter email address.');
+      setErrorMsg(Strings.validation.required);
       return true;
     }
 
     // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.trim())) {
-      setErrorMsg('Please enter a valid email address.');
+      setErrorMsg(Strings.validation.validEmailRequired);
       return true;
     }
 
@@ -101,7 +102,7 @@ const ForgotPassword = () => {
       <View style={styles.container}>
         <Loader visible={loading} />
        
-        <Text style={styles.welcome}>Forgot {'\n'}Password?</Text>
+        <Text style={styles.welcome}>{Strings.auth.forgotPassword.title}</Text>
 
         <View style={styles.inputBox}>
           <VectorIcon
@@ -111,7 +112,7 @@ const ForgotPassword = () => {
             size={20}
           />
           <TextInput
-            placeholder="Enter your email address"
+            placeholder={Strings.auth.forgotPassword.emailPlaceholder}
             style={styles.input}
             onChangeText={val => setEmail(val)}
           />
@@ -128,7 +129,7 @@ const ForgotPassword = () => {
         </View>
 
         <TouchableOpacity style={styles.loginButton} onPress={handleForgot}>
-          <Text style={styles.loginText}>Submit</Text>
+          <Text style={styles.loginText}>{Strings.auth.forgotPassword.submitButton}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

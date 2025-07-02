@@ -10,6 +10,7 @@ import { AuthStackParamList } from '../../../../navigation/types';
 import { register, updatePassword } from '../../../../api/auth';
 import Loader from '../../../../components/common/Loader';
 import Toast from 'react-native-simple-toast';
+import {Strings} from '../../../../assets/strings';
 
 type NavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 const ChangePassword = (props: any) => {
@@ -29,19 +30,19 @@ const ChangePassword = (props: any) => {
       
         // Basic empty checks
         if (!password.trim() || !confirmPassword.trim()) {
-          setErrorMsg('All fields are required.');
+          setErrorMsg(Strings.validation.required);
           return true;
         } 
       
         // Password length
         if (password.length < 6) {
-          setErrorMsg('Password must be at least 6 characters long.');
+          setErrorMsg(Strings.validation.password);
           return true;
         }
       
         // Password match
         if (password !== confirmPassword) {
-          setErrorMsg('Passwords do not match.');
+          setErrorMsg(Strings.validation.passwordMatch);
           return true;
         }
         
@@ -99,7 +100,7 @@ const ChangePassword = (props: any) => {
         </TouchableOpacity>
        <View style={styles.container}>
        <Loader visible={loading} />
-      <Text style={styles.welcome}>Change {"\n"}Password</Text>
+      <Text style={styles.welcome}>{Strings.auth.changePassword.title}</Text>
 
       <View style={styles.inputBox}>
         <VectorIcon
@@ -109,7 +110,7 @@ const ChangePassword = (props: any) => {
               size={24}
             />
         <TextInput 
-         placeholder="New Password" 
+         placeholder={Strings.auth.changePassword.newPasswordPlaceholder} 
          value={password}
          secureTextEntry={secureTextEntry} 
          style={styles.input} onChangeText={val => setPassword(val)} />
@@ -134,7 +135,7 @@ const ChangePassword = (props: any) => {
               size={24}
             />
         <TextInput 
-         placeholder="Confirm New Password" 
+         placeholder={Strings.auth.changePassword.confirmNewPasswordPlaceholder} 
          value={confirmPassword}
          secureTextEntry={secureTextEntryConfirm} 
          style={styles.input} onChangeText={val => setConfirmPassword(val)} />
@@ -160,7 +161,7 @@ const ChangePassword = (props: any) => {
         </View>
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginText}>Change Password</Text>
+        <Text style={styles.loginText}>{Strings.auth.changePassword.changeButton}</Text>
       </TouchableOpacity>
 
 

@@ -20,6 +20,7 @@ import {login} from '../../../api/auth';
 import Loader from '../../../components/common/Loader';
 import {setItem, StorageKeys} from '../../../utils/storage';
 import Toast from 'react-native-simple-toast';
+import {Strings} from '../../../assets/strings';
 
 type NavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
@@ -39,13 +40,13 @@ const LoginScreen = () => {
 
     // Validation checks
     if (!email.trim() || !password.trim()) {
-      setErrorMsg('Please enter both email and password.');
+      setErrorMsg(Strings.validation.bothFieldsRequired);
       return true;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.trim())) {
-      setErrorMsg('Please enter a valid email address.');
+      setErrorMsg(Strings.validation.validEmailRequired);
       return true;
     }
   };
@@ -72,7 +73,7 @@ const LoginScreen = () => {
       } else {
         setLoading(false);
         if (res?.data == null) {
-          Toast.show('Something went wrong', Toast.LONG);
+          Toast.show(Strings.errors.somethingWentWrong, Toast.LONG);
         } else {
           Toast.show(res?.data?.error, Toast.LONG);
         }
@@ -92,7 +93,7 @@ const LoginScreen = () => {
       <View style={styles.container}>
         <Loader visible={loading} />
 
-        <Text style={styles.welcome}>Welcome{'\n'}Back!</Text>
+        <Text style={styles.welcome}>{Strings.auth.login.title}</Text>
 
         <View style={styles.inputBox}>
           <VectorIcon
@@ -102,7 +103,7 @@ const LoginScreen = () => {
             size={20}
           />
           <TextInput
-            placeholder="Username or Email"
+            placeholder={Strings.auth.login.usernamePlaceholder}
             style={styles.input}
             onChangeText={val => setEmail(val?.toLowerCase())}
           />
@@ -116,7 +117,7 @@ const LoginScreen = () => {
             size={24}
           />
           <TextInput
-            placeholder="Password"
+            placeholder={Strings.auth.login.passwordPlaceholder}
             secureTextEntry={secureTextEntry}
             style={styles.input}
             onChangeText={val => setPassword(val)}
@@ -146,11 +147,11 @@ const LoginScreen = () => {
         )}
 
         <TouchableOpacity onPress={onPressForgot}>
-          <Text style={styles.forgot}>Forgot Password?</Text>
+          <Text style={styles.forgot}>{Strings.auth.login.forgotPassword}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginText}>Login</Text>
+          <Text style={styles.loginText}>{Strings.auth.login.loginButton}</Text>
         </TouchableOpacity>
 
         <Text style={styles.orText}>- OR Continue with -</Text>
@@ -169,9 +170,9 @@ const LoginScreen = () => {
         </View>
 
         <View style={styles.createAccountView}>
-          <Text style={styles.signupText}>Create An Account</Text>
+          <Text style={styles.signupText}>{Strings.auth.login.createAccount}</Text>
           <TouchableOpacity onPress={onSignupPress}>
-            <Text style={styles.signUp}>Sign Up</Text>
+            <Text style={styles.signUp}>{Strings.auth.login.signupLink}</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -14,6 +14,7 @@ import styles from './styles';
 import images from '../../../assets/images';
 import { Icons } from '../../../assets/icons';
 import { getCategories } from '../../../api/auth';
+import {Strings} from '../../../assets/strings';
 // import { Icons } from '../../../assets/icons';
 
 type Category= {
@@ -54,7 +55,7 @@ const HomeScreen = () => {
           {/* <Search */}
           <Icons.Search/>
           <TextInput
-            placeholder="Search any Product..."
+            placeholder={Strings.home.searchPlaceholder}
             style={styles.searchInput}
           />
         </View>

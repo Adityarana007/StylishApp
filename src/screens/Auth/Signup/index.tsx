@@ -10,6 +10,7 @@ import { AuthStackParamList } from '../../../navigation/types';
 import { register } from '../../../api/auth';
 import Loader from '../../../components/common/Loader';
 import Toast from 'react-native-simple-toast';
+import {Strings} from '../../../assets/strings';
 
 type NavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
@@ -30,26 +31,26 @@ const SignupScreen = () => {
       
         // Basic empty checks
         if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
-          setErrorMsg('All fields are required.');
+          setErrorMsg(Strings.validation.required);
           return true;
         } 
       
         // Email format validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email.trim())) {
-          setErrorMsg('Please enter a valid email address.');
+          setErrorMsg(Strings.validation.validEmailRequired);
           return true;
         }
       
         // Password length
         if (password.length < 6) {
-          setErrorMsg('Password must be at least 6 characters long.');
+          setErrorMsg(Strings.validation.password);
           return true;
         }
       
         // Password match
         if (password !== confirmPassword) {
-          setErrorMsg('Passwords do not match.');
+          setErrorMsg(Strings.validation.passwordMatch);
           return true;
         }
         
@@ -107,7 +108,7 @@ const SignupScreen = () => {
         </TouchableOpacity>
        <View style={styles.container}>
        <Loader visible={loading} />
-      <Text style={styles.welcome}>Create an {"\n"}account</Text>
+      <Text style={styles.welcome}>{Strings.auth.signup.title}</Text>
 
       <View style={styles.inputBox}>
         <VectorIcon
@@ -116,7 +117,7 @@ const SignupScreen = () => {
               color={'#555'}
               size={20}
             />
-        <TextInput placeholder="Username or Email" style={styles.input} onChangeText={val => setEmail(val)} />
+        <TextInput placeholder={Strings.auth.signup.usernamePlaceholder} style={styles.input} onChangeText={val => setEmail(val)} />
       </View>
 
       <View style={styles.inputBox}>
@@ -127,7 +128,7 @@ const SignupScreen = () => {
               size={24}
             />
         <TextInput 
-         placeholder="Password" 
+         placeholder={Strings.auth.signup.passwordPlaceholder} 
          value={password}
          secureTextEntry={secureTextEntry} 
          style={styles.input} onChangeText={val => setPassword(val)} />
@@ -152,7 +153,7 @@ const SignupScreen = () => {
               size={24}
             />
         <TextInput 
-         placeholder="Confirm Password" 
+         placeholder={Strings.auth.signup.confirmPasswordPlaceholder} 
          value={confirmPassword}
          secureTextEntry={secureTextEntryConfirm} 
          style={styles.input} onChangeText={val => setConfirmPassword(val)} />
@@ -178,7 +179,7 @@ const SignupScreen = () => {
         </View>
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginText}>Create Account</Text>
+        <Text style={styles.loginText}>{Strings.auth.signup.signupButton}</Text>
       </TouchableOpacity>
 
       <Text style={styles.orText}>- OR Continue with -</Text>
@@ -202,9 +203,9 @@ const SignupScreen = () => {
       <View style={styles.createAccountView}>
 
       <Text style={styles.signupText}>
-      I Already Have an Account
+      {Strings.auth.signup.hasAccount}
       </Text>
-      <TouchableOpacity onPress={onSignupPress}><Text style={styles.signUp}>Login</Text></TouchableOpacity>
+      <TouchableOpacity onPress={onSignupPress}><Text style={styles.signUp}>{Strings.auth.signup.loginLink}</Text></TouchableOpacity>
 </View>
     </View>
 
