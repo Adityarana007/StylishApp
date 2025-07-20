@@ -1,5 +1,6 @@
 import {
   Image,
+  NativeModules,
   SafeAreaView,
   Text,
   TextInput,
@@ -23,7 +24,7 @@ import Toast from 'react-native-simple-toast';
 import {Strings} from '../../../assets/strings';
 
 type NavigationProp = NativeStackNavigationProp<AuthStackParamList>;
-
+const {LoginModule} = NativeModules;
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -87,6 +88,10 @@ const LoginScreen = () => {
   const onPressForgot = () => {
     navigation.navigate('Forgot');
   };
+
+  const onPressNativeiOS = () => {
+    LoginModule.openLoginScreen();
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -175,6 +180,9 @@ const LoginScreen = () => {
             <Text style={styles.signUp}>{Strings.auth.login.signupLink}</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity onPress={onPressNativeiOS}>
+          <Text style={{textAlign: 'center', marginTop: 10}}>NATIVE iOS Login</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
